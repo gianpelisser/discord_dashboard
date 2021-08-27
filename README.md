@@ -1,5 +1,6 @@
 # discord_dashboard
-Painel de Controle para BOTs - DISCORD
+DASHBOARD for BOTs - DISCORD
+This is not my authorship, I'm using a ready-made template and editing it along with the code ready to login with discord. Credits below:
 
 Credits to **nouridio** for the temple.
 
