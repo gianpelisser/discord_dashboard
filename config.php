@@ -23,4 +23,4 @@ $redirect_url = "your_redirect_url";
 
 # https://i.imgur.com/2tlOI4t.png (screenshot)
 # null
-$bot_token = "Token";
+$bot_token = null;
