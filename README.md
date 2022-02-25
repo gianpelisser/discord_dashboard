@@ -1,9 +1,18 @@
-# discord_dashboard
-DASHBOARD for BOTs - DISCORD
-This is not my authorship, I'm using a ready-made template and editing it along with the code ready to login with discord. Credits below:
+# Discord Dashboard
+> DASHBOARD for BOTs - DISCORD
 
-Credits to **nouridio** for the temple.
-
-Credits to MarkisDev for the dashboard code.
+# Attention:
+> The files in the tests/old_html_php folder are not my authorship, I'm using a ready-made template and editing it along with the code ready to login with discord. Credits below:
+Credits to **nouridio** for the template.
+Credits to **MarkisDev** for the PHP Dashboard code.
 GitHub: "https://github.com/MarkisDev/discordoauth"
 Discord: https://join.markis.dev
+
+# Attention 2:
+> The code in the discord_dashboard folder is my own. I'm using the template created by nouridio as a base for the Home Page (Index). Special thanks to my friend PauloHenrique_(MatadorDeFlango).
+
+# Requirements
+> Python 3.8
+
+> Run
+`pip install -r requirements.txt`
