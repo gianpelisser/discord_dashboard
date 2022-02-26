@@ -7,6 +7,7 @@ from discord_oauth.auth import get_code
 from discord.ext import ipc
 
 # Imports Outros
+from datetime import timedelta
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
 import json
@@ -36,7 +37,7 @@ app.register_blueprint(page_home, url_prefix='')
 # App Configs
 app.config['DEBUG'] = config.DEBUG
 app.config['SECRET_KEY'] = config.SECRET_KEY
-# https://www.youtube.com/watch?v=iIhAfX4iek0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX&index=5
+app.permanent_session_lifetime = timedelta(hours=4)
 
 
 CORS(app)
@@ -59,13 +60,22 @@ def home():
 
 @app.route('/oauth/callback', methods=['GET'])
 def callback_teste():
-    try:
-        code = request.args['code']
-        r_discord_user = get_code(code)
+    if "user_id" in session:
+        return redirect(url_for("home"))
+    else:
+        try:
+            code = request.args['code']
+            r_discord_user = get_code(code)
 
-        return r_discord_user, 200
-    except Exception as e:
-        return f"Error: {e}", 200
+            return r_discord_user, 200
+        except Exception as e:
+            return f"Error: {e}", 200
+
+
+@app.route('/logout')
+def logout():
+    session.pop("user_id", None)
+    return redirect(url_for("home"))
 
 
 if __name__ == '__main__':
@@ -75,4 +85,11 @@ if __name__ == '__main__':
     # serve(app, port=5000)
     app.run(debug=True)
 
-# Ultima Linha
+# Fontes
+"""
+# Flask Tutorial
+https://www.youtube.com/watch?v=iIhAfX4iek0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX&index=5
+# Bootstrap
+https://getbootstrap.com/docs/4.3/getting-started/introduction/
+"""
+

@@ -1,5 +1,5 @@
 from discord_dashboard import config
-from flask import Flask, redirect, request, session
+from flask import Flask, redirect, request, session, url_for
 import requests
 import json
 
@@ -57,14 +57,17 @@ def get_code(code):
         j_discord['discordarray']['log_msg'] = f"Informacoes obtidas do Discord com sucesso!"
 
         try:
+            session.permanent = True
             session['user_id'] = data_user['id']
             '''if "user_id" in session:
                 user = session['user_id']'''
-            user_all_info_discord = json.dumps(j_discord)
-            return user_all_info_discord
+            print(data_user['id'])
+            return redirect(url_for("login"))
+            '''user_all_info_discord = json.dumps(j_discord)
+            return user_all_info_discord'''
         except Exception as e:
             print(f"Session Erro: {e}")
-            return f"Session Erro. {e}"
+            return redirect(url_for("home"))
     except Exception as e:
         print(e)
         return f"Erro: {e}"
