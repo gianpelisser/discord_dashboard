@@ -1,0 +1,14 @@
+{
+  "errosarray":
+  {
+    "isBanned": false,
+    "trocoudeslot": false,
+    "savedino": false,
+    "cooldown": false,
+    "prog": false,
+    "tipoban": "",
+    "cooldown_time": "",
+    "log_msg": "",
+    "erro": ""
+  }
+}

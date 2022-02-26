@@ -1,0 +1,20 @@
+{
+  "discordarray":
+  {
+    "iddiscord": "",
+    "discord": "",
+    "username": "",
+    "avatar_url": "",
+    "avatar_hash": "",
+    "discriminator": "",
+    "locale": "",
+    "roles_id": [],
+    "log_msg": "",
+    "erro": ""
+  },
+  "errosarray":
+  {
+    "log_msg": "",
+    "erro": ""
+  }
+}
