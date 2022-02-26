@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <!-- Bootstrap
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyT0iXipma34MD+dH/1fQ784/j6cY/
-    iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
@@ -18,11 +15,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700,800,900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,600,700,800,900&display=swap">
-
-    <script src="{{ url_for('static', filename='js/now-ui-kit.min.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Css do BootStrap do Menu (NavBar) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </head>
 <body>
 <div class="">
@@ -37,15 +31,17 @@
             <li class="nav-item active">
                 <a class="nav-link active" href="/home">Início <span class="sr-only">(current)</span></a>
             </li>
+
+            {% if current_user %}
+            <li class="nav-item">
+                <a class="nav-link" href="/painel">Painel de Controle</a>
+            </li>
+            {% else %}
+            {% endif %}
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Recursos</a>
             </li>
-            <?php
-            if (isset($_SESSION['user'])) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Painel de Controle</a>
-            </li>
-            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link" href="#">Doação (Donate)</a>
             </li>
@@ -64,21 +60,13 @@
         <div class="nav-item">
             <a class="nav-link" href="#">Equipe</a>
         </div>
-        <!-- Codigo em "python" para mostrar o botao de Login e sair se estiver logado ou não (igual ao php)
-        <?php
-			$auth_url = url($client_id, $redirect_url, $scopes);
-			if (isset($_SESSION['user'])) {
-				echo '<a href="includes/logout.php"><button class="btn login-btn btn-outline-accent my-2 my-sm-0">SAIR</button></a>';
-			} else {
-				echo "<a href='$auth_url'><button class='btn login-btn btn-outline-accent my-2 my-sm-0'>LOGIN | ENTRAR</button></a>";
-			}
-		?>
-		-->
-        <a href="/login">
-            <button class="btn login-btn btn-outline-accent my-2 my-sm-0">
-            LOGIN | ENTRAR
-            </button>
-        </a>
+
+        {% if current_user %}
+        <a href="/logout"><button class="btn login-btn btn-outline-accent my-2 my-sm-0">LOGOUT | SAIR</button></a>
+        {% else %}
+        <a href="{{ client_url_login }}"><button class="btn login-btn btn-outline-accent my-2 my-sm-0">LOGIN | ENTRAR</button></a>
+        {% endif %}
+
     </div>
     </nav>
 </div>
@@ -93,7 +81,7 @@
         <div class="bot-footer">
             <!--<img src="src/img/holita.jpg" width="150"><br />-->
             <h2>BLACK HOLITA</h2>
-            Copyright © [VORTEX] - 2019 - 2021
+            Copyright © [VORTEX] - 2019 - 2022
         </div><br/>
         <div class="nouridio">template desenvolvido por <a href="https://nouridio.com" target="_blank"> nouridio</a></div><br/>
         <div class="nouridio">web site desenvolvido por <a href="#"> vortex</a></div><!-- target="_blank" -->
@@ -101,6 +89,10 @@
 
     {% endblock %}
 
+    <script src="{{ url_for('static', filename='js/now-ui-kit.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 
 </body>
 </html>

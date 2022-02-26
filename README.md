@@ -16,3 +16,6 @@ Discord: https://join.markis.dev
 
 > Run
 `pip install -r requirements.txt`
+
+> To save and create new requirements.txt with new imports run:
+`pip freeze > requirements.txt`

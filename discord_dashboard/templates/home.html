@@ -4,44 +4,20 @@
 {% endblock %}
 
 {% block content %}
+
+{% if current_user %}
 <div class="heading">
-    <!-- Mostrar somente se estiver logado
-    Exemplo em PHP
-    <?php
-    if (isset($_SESSION['user'])) {
-        echo '<h1 class="display-5 title">Bem Vindo(a)</h1>';
-        echo '<p> Name : ' . $_SESSION['username'] . '#' . $_SESSION['discrim'] . '';
-        echo '<p> ID : ' . $_SESSION['user_id'] . '</p>';
-        $extention = is_animated($_SESSION['user_avatar']);
-        echo '<p><img src="https://cdn.discordapp.com/avatars/' . $_SESSION['user_id'] . "/" . $_SESSION['user_avatar'] . $extention . '" /></p>';
-
-        echo '<p>'; # Mostrar apenas as guilds onde o usuario é dono.
-        for($i = 0; $i < sizeof($_SESSION['guilds']); $i++)
-        {
-        if ($_SESSION['guilds'][$i]['owner'] == true)
-        {
-            echo('<div>');
-            echo $_SESSION['guilds'][$i]['name'];
-            echo('</div>');
-        }
-        }
-        echo '</p>';
-
-        echo '<button class="btn login-btn btn-outline-accent my-2 my-sm-0" style="font-size: 10px !important;font-family: poppins !important;">PAINEL DE CONTROLE</button>';
-        echo '<br />';
-    } else {
-        echo '<br />';
-    }
-    ?>
-    <h1 class="display-5 title">É hora de usar o Bot em seu servidor.</h1>
-    <p class="subtitle">BOT serve para aumentar as habilidades e impulsionar o seu servidor Discord<br />Também possui moderação automática, administração e muito mais!</p>
-    <a class="btn btn-primary btn-lg" href="#start_link" target="_blank" role="button">Como usar</a>
-    <a class="btn btn-secondary btn-lg" href="#server_link" target="_blank" role="button">Adicionar ao Servidor</a>
-    <br /><br /><br /><br /><br /><br />
-    -->
     <h1 class="display-5 title">Bem-Vindo(a)!</h1>
+    <div><img src="{{current_user.avatar_url}}" alt="" class="userimg"></div>
+    <p>{{current_user.username}}#{{current_user.discriminator}}</p>
+    <p><a href="/logout">Logout</a></p>
 </div>
 
+{% else %}
+<div class="heading">
+    <!-- Não remover div heading para afins de estetica da página-->
+</div>
+{% endif %}
 <div class="features">
     <div class="title">Características do bot</div>
     <div class="subtitle">Nós fornecemos os melhores recursos do Bot!</div>
