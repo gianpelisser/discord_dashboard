@@ -31,15 +31,17 @@
             <li class="nav-item active">
                 <a class="nav-link active" href="/home">Início <span class="sr-only">(current)</span></a>
             </li>
+
+            {% if current_user %}
+            <li class="nav-item">
+                <a class="nav-link" href="/painel">Painel de Controle</a>
+            </li>
+            {% else %}
+            {% endif %}
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Recursos</a>
             </li>
-            <?php
-            if (isset($_SESSION['user'])) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Painel de Controle</a>
-            </li>
-            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link" href="#">Doação (Donate)</a>
             </li>
@@ -58,21 +60,13 @@
         <div class="nav-item">
             <a class="nav-link" href="#">Equipe</a>
         </div>
-        <!-- Codigo em "python" para mostrar o botao de Login e sair se estiver logado ou não (igual ao php)
-        <?php
-			$auth_url = url($client_id, $redirect_url, $scopes);
-			if (isset($_SESSION['user'])) {
-				echo '<a href="includes/logout.php"><button class="btn login-btn btn-outline-accent my-2 my-sm-0">SAIR</button></a>';
-			} else {
-				echo "<a href='$auth_url'><button class='btn login-btn btn-outline-accent my-2 my-sm-0'>LOGIN | ENTRAR</button></a>";
-			}
-		?>
-		-->
-        <a href="https://discord.com/api/oauth2/authorize?client_id={{config.client_id}}&redirect_uri=http%3A%2F%2Flocalhost%2Foauth%2Fcallback&response_type=code&scope=identify%20guilds%20guilds.members.read">
-            <button class="btn login-btn btn-outline-accent my-2 my-sm-0">
-            LOGIN | ENTRAR
-            </button>
-        </a>
+
+        {% if current_user %}
+        <a href="/logout"><button class="btn login-btn btn-outline-accent my-2 my-sm-0">LOGOUT | SAIR</button></a>
+        {% else %}
+        <a href="{{ client_url_login }}"><button class="btn login-btn btn-outline-accent my-2 my-sm-0">LOGIN | ENTRAR</button></a>
+        {% endif %}
+
     </div>
     </nav>
 </div>
@@ -87,7 +81,7 @@
         <div class="bot-footer">
             <!--<img src="src/img/holita.jpg" width="150"><br />-->
             <h2>BLACK HOLITA</h2>
-            Copyright © [VORTEX] - 2019 - 2021
+            Copyright © [VORTEX] - 2019 - 2022
         </div><br/>
         <div class="nouridio">template desenvolvido por <a href="https://nouridio.com" target="_blank"> nouridio</a></div><br/>
         <div class="nouridio">web site desenvolvido por <a href="#"> vortex</a></div><!-- target="_blank" -->

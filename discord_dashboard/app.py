@@ -3,6 +3,7 @@ from flask import Flask, request, Blueprint, render_template, jsonify, url_for, 
 from flask_cors import CORS
 
 # Imports Discord
+from zenora import APIClient
 from discord_oauth.auth import get_code
 from discord.ext import ipc
 
@@ -13,6 +14,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import json
 import config
 import requests
+import os
 
 # Imports Module
 from pages.home import page_home
@@ -30,7 +32,7 @@ def back_to_front():
 
 # Flask Instance
 app = Flask(__name__)
-app.register_blueprint(page_home, url_prefix='')
+# app.register_blueprint(page_home, url_prefix='')
 # app.register_blueprint(page_login, url_prefix='/dashboard')
 # ipc_client = ipc.Client(secret_key="Vortex_painel_SAS_secret_jkdawiodjawiodnmawildjwal")
 
@@ -54,28 +56,51 @@ def before():
 
 
 @app.route('/')
+@app.route('/home/')
 def home():
-    return render_template(f'home.html')
+    if "token" in session:
+        bearer_client = APIClient(session.get('token'), bearer=True)
+        current_user = bearer_client.users.get_current_user()
+
+        return render_template(f'home.html', client_url_login=config.client_url_login, current_user=current_user)
+    return render_template(f'home.html', client_url_login=config.client_url_login)
 
 
-@app.route('/oauth/callback', methods=['GET'])
+@app.route('/callback/', methods=['GET'])
 def callback_teste():
-    if "user_id" in session:
-        return redirect(url_for("home"))
+    if "token" in session:
+        return redirect(url_for("painel"))
     else:
         try:
             code = request.args['code']
-            r_discord_user = get_code(code)
-
-            return r_discord_user, 200
+            get_code(code)
+            return redirect(url_for(f"painel"))
         except Exception as e:
-            return f"Error: {e}", 200
+            print(e)
+            return redirect(url_for(f"home"))
 
 
 @app.route('/logout')
 def logout():
-    session.pop("user_id", None)
-    return redirect(url_for("home"))
+    try:
+        session.clear()
+    except:
+        try:
+            session.pop("user_id", None)
+        except:
+            return "Falha ao deslogar."
+    finally:
+        return redirect(url_for("home"))
+
+
+@app.route('/painel/', methods=['GET'])
+def dashboard():
+    if "token" in session:
+        bearer_client = APIClient(session.get('token'), bearer=True)
+        current_user = bearer_client.users.get_current_user()
+        return render_template(f'painel.html', client_url_login=config.client_url_login, current_user=current_user)
+    else:
+        return redirect(url_for(f"home"))
 
 
 if __name__ == '__main__':
@@ -91,5 +116,10 @@ if __name__ == '__main__':
 https://www.youtube.com/watch?v=iIhAfX4iek0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX&index=5
 # Bootstrap
 https://getbootstrap.com/docs/4.3/getting-started/introduction/
+# Login with Discord on Flask
+https://www.youtube.com/watch?v=KFt8BpWakMg
+# Flask-Discord?
+https://github.com/weibeu/Flask-Discord
+https://github.com/weibeu/Flask-Discord/blob/master/tests/test_app.py
 """
 

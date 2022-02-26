@@ -30,13 +30,13 @@ def get_code(code):
         acess_token = data_token['access_token']
         # print(acess_token)
 
-        # Pega as info do usuario(discord)
+        '''# Pega as info do usuario(discord)
         r_discord = requests.get(f"{config.api_endpoint}/users/@me", headers={"Authorization": f"Bearer {acess_token}"})
         data_user = r_discord.json()
         user_avatar_url = f"{config.avatar_base_url}avatars/{data_user['id']}/{data_user['avatar']}.jpeg"
-        # print(data_user)
+        # print(data_user)'''
 
-        # Pega os cargos do usuario no servidor especifico (SAS)
+        '''# Pega os cargos do usuario no servidor especifico (SAS)
         guild_id = config.id_servidor_sas  # SAS - The Isle
         r_u_server = requests.get(f"{config.api_endpoint}/users/@me/guilds/{guild_id}/member",
                                   headers={"Authorization": f"Bearer {acess_token}"})
@@ -54,20 +54,27 @@ def get_code(code):
         j_discord['discordarray']['discriminator'] = f"{data_user['discriminator']}"
         j_discord['discordarray']['locale'] = f"{data_user['locale']}"
         j_discord['discordarray']['roles_id'] = user_roles
-        j_discord['discordarray']['log_msg'] = f"Informacoes obtidas do Discord com sucesso!"
+        j_discord['discordarray']['log_msg'] = f"Informacoes obtidas do Discord com sucesso!"'''
 
-        try:
+        '''try:
             session.permanent = True
             session['user_id'] = data_user['id']
-            '''if "user_id" in session:
-                user = session['user_id']'''
-            print(data_user['id'])
-            return redirect(url_for("login"))
-            '''user_all_info_discord = json.dumps(j_discord)
-            return user_all_info_discord'''
+            # if "user_id" in session:
+                # user = session['user_id']
+            print(f"Usuario Discord_ID: {data_user['id']} fez login no site.\n"
+                  f"Nome: {data_user['username']}\n"
+                  f"Language: {data_user['locale']}")
+            return redirect(url_for("painel"))
+            # user_all_info_discord = json.dumps(j_discord)
+            # return user_all_info_discord
         except Exception as e:
             print(f"Session Erro: {e}")
-            return redirect(url_for("home"))
+            return redirect(url_for("home"))'''
+
+        session['token'] = acess_token
+        print(f"Solicitação de login executada com sucesso!")
+        return redirect(url_for(f"home"))
+
     except Exception as e:
         print(e)
-        return f"Erro: {e}"
+        return redirect("home")
