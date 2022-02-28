@@ -10,7 +10,7 @@ client_url_login = f"https://discord.com/api/oauth2/authorize?client_id={client_
 ch_historico = 941899483837509672
 id_servidor_sas = 605389794641707018  # SAS - The Isle
 
-# Config MySQL Holita
+# Config MySQL
 servidor_host = "192.168.1.2"  # Endereco IP/domino do Banco de Dados
 servidor_user = "user"  # usuario do Banco de dados
 servidor_mydb = "DB"  # Nome da database do Banco de dados
