@@ -1,26 +1,57 @@
 {% extends 'base.html'%}
 {% block title %}
-    Black Holita - Nova Página
+    Painel de Controle
 {% endblock %}
 
 {% block content %}
 
 {% if current_user %}
+<!--
 <div class="heading">
-    <!-- Não remover para afins de estetica da página -->
-</div>
+
+</div>-->
 <div class="features">
     <div class="start">
         <div class="card">
             <div class="card-body gs-card">
+                <p class="subtitle" style="font-weight: bold;"> Logado como:</p>
+                <p class="subtitle" style="font-style: italic;">{{current_user.username}}#{{current_user.discriminator}} <br> ID: {{current_user.id}}</p>
+                <table border="0">
+                    <tbody>
+                    {% if guild_adm == [] %}
+                        <tr>
+                            <td>
+                                <p>Oops, parece que você não possui nenhum servidor :(</p>
+                                <p>Certeza de que está conectado à sua conta do Discord correta?</p>
+                            </td>
+                        </tr>
+                    {% else %}
+                        {% for guild in current_guilds %}
+                            <!-- is_owner="False", -->
+                            {% if guild.id in guild_adm %}
+                            <tr>
+                                <td>{{guild.id}}</td>
+                                <td><img src="{{guild.icon_url}}" width="50px" height="50px" class="guildimg"></td>
+                                <td>{{guild.name}}</td>
+                                <td>{% if guild.is_owner %} Dono {%else%} Admin {% endif %}</td>
+                                <td><a href="#"><button class="btn">Configurar</button></a></td>
+                                <!-- Alterar o botao configurar para:
+                                 Mostrar Configurar quando o BOT e o Usuario estiver no discord.
+                                 Se o bot não estiver no discord, mostrar botão adicionar ao servidor discord.
+                                 -->
+                            </tr>
 
-                <h1 class="title">Bem-Vindo(a)!</h1>
-                <div><img src="{{current_user.avatar_url}}" class="userimg" alt=""></div>
-                <p class="subtitle">{{current_user.username}}#{{current_user.discriminator}}</p>
-                <p>Discord ID: {{current_user.id}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </tbody>
+
+                </table>
+
                 <!--<p><a href="/logout" class="btn btn-primary btn-lg">Logout</a></p>-->
-
-            </div><br />
+            </div>
+            <br />
         </div>
     </div>
 </div>
