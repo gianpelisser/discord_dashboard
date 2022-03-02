@@ -1,15 +1,7 @@
 from discord_dashboard import config
-from flask import Flask, redirect, request, session, url_for
+from flask import redirect, session
 import requests
-import json
 
-
-# Função para pegar o arquivo json padrão de resposta para o frontend.
-def discord_to_front():
-    with open('discord_oauth/user_infos.json', 'r') as data_json:
-        discord_default = json.load(data_json)
-    return discord_default
-    
 
 def get_code(code):
     try:
@@ -42,19 +34,7 @@ def get_code(code):
                                   headers={"Authorization": f"Bearer {acess_token}"})
         data_user_server = r_u_server.json()
         user_roles = data_user_server['roles']
-
-        # abre o json para salvar todas as informaçoes e preparar para voltar ao frontend.
-        j_discord = discord_to_front()
-
-        j_discord['discordarray']['iddiscord'] = f"{data_user['id']}"
-        j_discord['discordarray']['discord'] = f"{data_user['username']}#{data_user['discriminator']}"
-        j_discord['discordarray']['username'] = f"{data_user['username']}"
-        j_discord['discordarray']['avatar_url'] = f"{user_avatar_url}"
-        j_discord['discordarray']['avatar_hash'] = f"{data_user['avatar']}"
-        j_discord['discordarray']['discriminator'] = f"{data_user['discriminator']}"
-        j_discord['discordarray']['locale'] = f"{data_user['locale']}"
-        j_discord['discordarray']['roles_id'] = user_roles
-        j_discord['discordarray']['log_msg'] = f"Informacoes obtidas do Discord com sucesso!"'''
+        '''
 
         '''try:
             session.permanent = True
@@ -71,9 +51,10 @@ def get_code(code):
             print(f"Session Erro: {e}")
             return redirect(url_for("home"))'''
 
+        # Salva o Acess_token como Token em uma Session
         session['token'] = acess_token
         print(f"Solicitação de login executada com sucesso!")
-        return redirect(url_for(f"home"))
+        return
 
     except Exception as e:
         print(e)
