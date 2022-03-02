@@ -4,7 +4,7 @@ avatar_base_url = 'https://cdn.discordapp.com/'  # Nao altere
 client_id = ''  # ID do BOT (app criado no discord)
 client_secret = ''  # Secret do app criado no bot, nao é o token do bot
 client_scope = "identify guilds guilds.members.read"  # Scope, Pedir o q p/ usuario autorizar. Default=identify
-redirect_url = 'http://localhost:5008/callback'
+redirect_url = 'http://localhost:5000/callback'
 client_token = ''
 client_url_login = f"https://discord.com/api/oauth2/authorize?client_id={client_id}&redirect_uri={redirect_url}&response_type=code&scope={client_scope}"
 ch_historico = 941899483837509672
