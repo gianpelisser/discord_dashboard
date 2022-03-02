@@ -9,7 +9,7 @@ GitHub: "https://github.com/MarkisDev/discordoauth"
 Discord: https://join.markis.dev
 
 # Attention 2:
-> The code in the discord_dashboard folder is my own. I'm using the template created by nouridio as a base for the Home Page (Index). Special thanks to my friend PauloHenrique_(MatadorDeFlango).
+> The code in the discord_dashboard folder is my own. I'm using the template created by nouridio as a base for the Home Page (Index). Special thanks to my friend Paulo Henrique.
 
 # Requirements
 > Python 3.8
